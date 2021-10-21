@@ -1,4 +1,4 @@
-# microservice-springboot-thymeleaf
+# mvc-springboot-thymeleaf
 A simple project to show the Spring Boot with Thymeleaf in action.
 
 Creating MVC architecture using Spring boot and Thymeleaf.
@@ -18,27 +18,27 @@ There are several ways to run a Spring Boot application on your local machine.
 ### Using Main method
 Clone the repository to your local drive.
 ```shell
-git clone https://github.com/prasbhat/microservice-springboot-thymeleaf.git
+git clone https://github.com/prasbhat/mvc-springboot-thymeleaf.git
 ```
-Import the project as "Maven Project" into your favourite IDE and execute the `main` method in the `com.myzonesoft.security.MicroserviceSpringbootThymeleafApplication` class from your IDE.
+Import the project as "Maven Project" into your favourite IDE and execute the `main` method in the `com.myzonesoft.security.MVCSpringbootThymeleafApplication` class from your IDE.
 
 `Right Click on the file and Run as Java Application`
 
 ### Running the application with Maven
 Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
 ```shell
-git clone https://github.com/prasbhat/microservice-springboot-thymeleaf.git
-cd microservice-springboot-thymeleaf
+git clone https://github.com/prasbhat/mvc-springboot-thymeleaf.git
+cd mvc-springboot-thymeleaf
 mvn spring-boot:run
 ```
 
 ### Running the application with Executable JAR
 The code can also be built into a jar and then executed/run. Once the jar is built, run the jar by double clicking on it or by using the command:
 ```shell
-git clone https://github.com/prasbhat/microservice-springboot-thymeleaf.git
-cd microservice-springboot-thymeleaf
+git clone https://github.com/prasbhat/mvc-springboot-thymeleaf.git
+cd mvc-springboot-thymeleaf
 mvn package -DskipTests
-java -jar target/microservice-springboot-thymeleaf-0.0.1-SNAPSHOT.jar
+java -jar target/mvc-springboot-thymeleaf-0.0.1-SNAPSHOT.jar
 ```
 
 For more information on this project, refer the article [here](https://myzonesoft.com/2021/10/05/develop-mvc-application-using-spring-boot-and-thymeleaf/)

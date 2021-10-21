@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.myzonesoft.fullstack.architecture</groupId>
-	<artifactId>microservice-springboot-thymeleaf</artifactId>
+	<artifactId>mvc-springboot-thymeleaf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservice-springboot-thymeleaf</name>
+	<name>mvc-springboot-thymeleaf</name>
 	<description>Project for Spring Boot and Thymeleaf</description>
 	<dependencies>
 		<dependency>
