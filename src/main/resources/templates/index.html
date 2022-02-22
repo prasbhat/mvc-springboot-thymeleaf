@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>To do Tracker</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+    <div class="container" align="center">
+        <a th:href="@{/singleItemView/edit/0}"><button class="btn btn-success">CREATE</button></a>
+        <br/>
+        <table class='table-striped' border='1' align="center">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>No. Of Comments</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="todo : ${todoList}">
+                    <td th:text="${todo.title}"></td>
+                    <td th:text="${todo.description}"></td>
+                    <td th:text="${todo.dueDate}"></td>
+                    <td th:text="${todo.status}"></td>
+                    <td align="center" th:text="${todo.todoTaskCommentsSet.size()}"></td>
+                    <td>
+                        <a th:href="@{/singleItemView/view/__${todo.id}__}"><button class="btn btn-success">VIEW</button></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/singleItemView/edit/__${todo.id}__}"><button class="btn btn-success">EDIT</button></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/deleteById/__${todo.id}__}"><button class="btn btn-warning">DELETE</button></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

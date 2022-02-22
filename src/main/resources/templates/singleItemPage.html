@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>To do Tracker</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <script type="text/javascript">
+        function addNewComments(){
+            var lTable = document.getElementById("commentsTable");
+            lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
+        }
+    </script>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+    <div class="container" align="center">
+        <form method="post" th:action="@{/createOrUpdate}" th:object="${todoItem}">
+        <table class='table-striped' border='1'>
+            <tbody>
+                <input type="hidden" name="id" id="id" th:value="*{id}"/>
+                <tr>
+                    <th>Title</th>
+                    <td>
+                        <span th:if="${action == 'view'}" th:text="${todoItem.title}"></span>
+                        <span th:unless="${action == 'view'}">
+                            <input type="text" name='title' id='title' th:value='*{title}' size="35"/>
+                        </span>
+                    </td>
+                </tr><tr>
+                    <th>Description</th>
+                    <td>
+                        <span th:if="${action == 'view'}" th:text="${todoItem.description}"></span>
+                        <span th:unless="${action == 'view'}">
+                            <textarea name='description' id='description' rows="3" cols="38" th:value='*{description}'
+                                      th:text="${todoItem.description}"></textarea>
+                        </span>
+                    </td>
+                </tr><tr>
+                    <th>Creation Date</th>
+                    <td>
+                        <span th:text="${#temporals.format(todoItem.creationDate, 'dd-MM-yyyy')}"></span>
+                    </td>
+                </tr><tr>
+                    <th>Due Date</th>
+                    <td>
+                        <span th:if="${action == 'view'}" th:text="${#temporals.format(todoItem.dueDate, 'dd-MM-yyyy')}"></span>
+                        <span th:unless="${action == 'view'}">
+                            <input type="date" th:field="*{dueDate}" th:value="*{dueDate}"/>
+                        </span>
+                    </td>
+                </tr><tr>
+                    <th>Status</th>
+                    <td>
+                        <span th:if="${action == 'view'}"th:text='${todoItem.status}'></span>
+                        <span th:unless="${action == 'view'}">
+                            <select th:field="*{status}">
+                            <option value=''>--Select Status--</option>
+                            <option th:each="status : ${todoStatus}" th:value="${status}" th:text="${status}">
+                            </option>
+                        </select>
+                        </span>
+                    </td>
+                </tr>
+                <tr th:if="${todoItem.id > 0}">
+                    <th>Comments</th>
+                    <td>
+                        <table class='table-bordered'>
+                            <thead th:if="${todoItem.todoTaskCommentsSet.size() > 0}">
+                            <tr>
+                                <th>Creation Date</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="comments : ${todoItem.todoTaskCommentsSet}" th:if="${todoItem.todoTaskCommentsSet.size() > 0}">
+                                    <td>
+                                        <span th:text="${#temporals.format(comments.creationDate, 'dd-MM-yyyy')}"></span>
+                                    </td>
+                                    <td th:text="${comments.taskComments}"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" th:if="${action == 'edit' and todoItem.id > 0}" th:object="${todoTaskComments}">
+                                        <input type="button" class="btn btn-success" onclick=addNewComments() value="Add New Comments" />
+                                        <table class='table-bordered' id="commentsTable" style="display:none;">
+                                                <tr>
+                                                    <th>Description</th>
+                                                    <td>
+                                                        <textarea th:field="*{taskComments}" rows="3" cols="38"></textarea>
+                                                    </td>
+                                                </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr th:if="${action == 'edit'}">
+                    <td colspan="2" align="center">
+                        <button class="btn btn-success">Submit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+    <br/>
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

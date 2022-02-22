@@ -1,4 +1,4 @@
-package com.myzonesoft.security;
+package com.myzonesoft.microservice.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

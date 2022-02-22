@@ -8,6 +8,7 @@ Creating MVC architecture using Spring boot and Thymeleaf.
 The library is extremely extensible and its natural templating capability ensures templates can be prototyped without a back-end – which makes development very fast when compared with other popular template engines such as JSP.
 
 Thymeleaf has a good integration with Spring MVC framework making it first choice library for frontend development in Java and Spring technologies.
+
 ## Technologies used
 - Spring Boot
 - Spring Boot Thymeleaf Starter Pack
@@ -20,7 +21,7 @@ Clone the repository to your local drive.
 ```shell
 git clone https://github.com/prasbhat/mvc-springboot-thymeleaf.git
 ```
-Import the project as "Maven Project" into your favourite IDE and execute the `main` method in the `com.myzonesoft.security.MVCSpringbootThymeleafApplication` class from your IDE.
+Import the project as "Maven Project" into your favourite IDE and execute the `main` method in the `MVCSpringbootThymeleafApplication` class from your IDE.
 
 `Right Click on the file and Run as Java Application`
 
@@ -41,4 +42,4 @@ mvn package -DskipTests
 java -jar target/mvc-springboot-thymeleaf-0.0.1-SNAPSHOT.jar
 ```
 
-For more information on this project, refer the article [here](https://myzonesoft.com/2021/10/05/develop-mvc-application-using-spring-boot-and-thymeleaf/)
+For more information on this project, refer the article [here](https://myzonesoft.com/post/mvc-springboot-thymeleaf/)
