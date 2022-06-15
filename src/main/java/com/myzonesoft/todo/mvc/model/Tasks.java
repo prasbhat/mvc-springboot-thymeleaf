@@ -1,4 +1,4 @@
-package com.myzonesoft.microservice.todo.model;
+package com.myzonesoft.todo.mvc.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,11 +10,11 @@ import java.util.Set;
  * To-do POJO model class
  */
 @SuppressWarnings("unused")
-public class Todo {
+public class Tasks {
     /**
      * Unique Identifier for the To-do task
      */
-    private Long id;
+    private Long systemTasksId;
     /**
      * Title for the To-do task
      */
@@ -44,12 +44,12 @@ public class Todo {
     /**
      * Default Constructor without any parameters
      */
-    public Todo() {
+    public Tasks() {
     }
 
     /**
      * Constructor with all parameters
-     * @param id Unique Identifier for the To-do task
+     * @param systemTasksId Unique Identifier for the To-do task
      * @param title Title for the To-do task
      * @param description Description for the To-do task
      * @param dueDate Due date for the To-do task
@@ -57,8 +57,9 @@ public class Todo {
      * @param creationDate System generated creation date of the to do task
      * @param todoTaskCommentsSet Comments related to the to do task
      */
-    public Todo(Long id, String title, String description, LocalDate creationDate, LocalDate dueDate, String status, Set<TodoTaskComments> todoTaskCommentsSet) {
-        this.id = id;
+    public Tasks(Long systemTasksId, String title, String description, LocalDate creationDate, LocalDate dueDate,
+                 String status, Set<TodoTaskComments> todoTaskCommentsSet) {
+        this.systemTasksId = systemTasksId;
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
@@ -69,12 +70,12 @@ public class Todo {
 
     //Getters and setters for all the private variables declared above
 
-    public Long getId() {
-        return id;
+    public Long getSystemTasksId() {
+        return systemTasksId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSystemTasksId(Long systemTasksId) {
+        this.systemTasksId = systemTasksId;
     }
 
     public String getTitle() {
@@ -128,12 +129,12 @@ public class Todo {
     /**
      * toString method for displaying the To-do POJO class as a String
      *
-     * @return String To-do POJO object
+     * @return String Tasks POJO object
      */
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Todo{");
-        sb.append("id=").append(id);
+        final StringBuilder sb = new StringBuilder("Tasks{");
+        sb.append("systemTasksId=").append(systemTasksId);
         sb.append(", title='").append(title).append('\'');
         sb.append(", description='").append(description).append('\'');
         sb.append(", creationDate=").append(creationDate);

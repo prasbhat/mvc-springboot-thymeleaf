@@ -1,4 +1,4 @@
-package com.myzonesoft.microservice.todo.model;
+package com.myzonesoft.todo.mvc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -15,7 +15,7 @@ public class TodoTaskComments {
     private LocalDate creationDate;
 
     @JsonBackReference
-    private Todo todoTask;
+    private Tasks todoTask;
 
     //Constructors
 
@@ -62,12 +62,12 @@ public class TodoTaskComments {
         this.creationDate = creationDate;
     }
 
-    public Todo getTodoTask() {
+    public Tasks getTodoTask() {
         return todoTask;
     }
 
-    public void setTodoTask(Todo todoTask) {
-        this.todoTask = todoTask;
+    public void setTodoTask(Tasks tasksTask) {
+        this.todoTask = tasksTask;
     }
 
     @Override

@@ -1,10 +1,10 @@
-package com.myzonesoft.security;
+package com.myzonesoft.to.mvc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MicroserviceSpringbootH2ThymeleafApplicationTests {
+class MVCSpringbootThymeleafApplicationTests {
 
 	@Test
 	void contextLoads() {

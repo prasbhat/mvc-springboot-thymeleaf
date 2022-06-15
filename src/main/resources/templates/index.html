@@ -24,20 +24,20 @@
             </tr>
             </thead>
             <tbody>
-                <tr th:each="todo : ${todoList}">
-                    <td th:text="${todo.title}"></td>
-                    <td th:text="${todo.description}"></td>
-                    <td th:text="${todo.dueDate}"></td>
-                    <td th:text="${todo.status}"></td>
-                    <td align="center" th:text="${todo.todoTaskCommentsSet.size()}"></td>
+                <tr th:each="tasks : ${tasksItemList}">
+                    <td th:text="${tasks.title}"></td>
+                    <td th:text="${tasks.description}"></td>
+                    <td th:text="${tasks.dueDate}"></td>
+                    <td th:text="${tasks.status}"></td>
+                    <td align="center" th:text="${tasks.todoTaskCommentsSet.size()}"></td>
                     <td>
-                        <a th:href="@{/singleItemView/view/__${todo.id}__}"><button class="btn btn-success">VIEW</button></a>
+                        <a th:href="@{/singleItemView/view/__${tasks.systemTasksId}__}"><button class="btn btn-success">VIEW</button></a>
                     </td>
                     <td>
-                        <a th:href="@{/singleItemView/edit/__${todo.id}__}"><button class="btn btn-success">EDIT</button></a>
+                        <a th:href="@{/singleItemView/edit/__${tasks.systemTasksId}__}"><button class="btn btn-success">EDIT</button></a>
                     </td>
                     <td>
-                        <a th:href="@{/deleteById/__${todo.id}__}"><button class="btn btn-warning">DELETE</button></a>
+                        <a th:href="@{/deleteById/__${tasks.systemTasksId}__}"><button class="btn btn-warning">DELETE</button></a>
                     </td>
                 </tr>
             </tbody>
