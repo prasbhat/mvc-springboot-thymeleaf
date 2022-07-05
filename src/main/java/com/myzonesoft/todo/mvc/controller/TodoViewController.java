@@ -5,6 +5,7 @@ import com.myzonesoft.todo.mvc.model.TodoTaskComments;
 import com.myzonesoft.todo.mvc.util.TodoApplicationConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -32,10 +33,8 @@ public class TodoViewController implements TodoApplicationConstants {
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoViewController.class);
     private final String className = this.getClass().getSimpleName();
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
-    @Value("${base_uri}")
-    private String base_uri;
+    @Autowired
+    private TodoController todoController;
 
     /**
      * Method for redirecting to the index.jsp page
@@ -48,7 +47,7 @@ public class TodoViewController implements TodoApplicationConstants {
     public String gotoHome(ModelMap model) {
         String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         LOGGER.info(MessageFormat.format(LOGGER_ENTRY, className, methodName));
-        model.put("tasksItemList", restTemplate.getForObject(base_uri,List.class));
+        model.put("tasksItemList", todoController.getAllTasks().getBody());
         LOGGER.info(MessageFormat.format(LOGGER_EXIT, className, methodName));
         return "index";
     }
@@ -64,18 +63,17 @@ public class TodoViewController implements TodoApplicationConstants {
      */
     @GetMapping("/singleItemView/{action}/{todoId}")
     public String goToSingleItemPage(ModelMap model, @PathVariable("action") String action,
-                                           @PathVariable("todoId") String todoId){
+                                           @PathVariable("todoId") Long todoId){
         String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         LOGGER.info(MessageFormat.format(LOGGER_ENTRY, className, methodName));
-        Tasks tasksItem = new Tasks(0L, "", "", null, null, "",
-                null);
-        if(Long.parseLong(todoId) != 0) {
-            tasksItem = restTemplate.getForObject(base_uri + "/" + todoId, Tasks.class);
+        Tasks tasksItem = Tasks.builder().title("").description("").dueDate(null).status("").build();
+        if(todoId > 0) {
+            tasksItem = todoController.getTasksById(todoId).getBody();
         }
         model.put("tasksItem", tasksItem);
         model.put("todoTaskComments", new TodoTaskComments());
         model.put("action",action);
-        model.put("todoStatus",restTemplate.getForObject(base_uri+"/status",List.class));
+        model.put("todoStatus",todoController.getTaskStatus().getBody());
         LOGGER.info(MessageFormat.format(LOGGER_EXIT, className, methodName));
         return "singleItemPage";
     }
@@ -86,14 +84,14 @@ public class TodoViewController implements TodoApplicationConstants {
         LOGGER.info(MessageFormat.format(LOGGER_ENTRY, className, methodName));
         LOGGER.debug("TodoObject="+ tasksItem);
 
-        if (tasksItem.getSystemTasksId() != 0) {
+        if (tasksItem.getSystemTasksId() != null && tasksItem.getSystemTasksId() > 0 ) {
             Set<TodoTaskComments> todoTaskCommentsSet = new HashSet<>();
             todoTaskCommentsSet.add(todoTaskComments);
             tasksItem.setTodoTaskCommentsSet(todoTaskCommentsSet);
 
-            restTemplate.put(base_uri, tasksItem, Tasks.class);
+            todoController.updateTaskItem(tasksItem);
         } else {
-            Tasks response = restTemplate.postForObject(base_uri, tasksItem, Tasks.class);
+            Tasks response = todoController.createTodoTask(tasksItem).getBody();
         }
 
         LOGGER.info(MessageFormat.format(LOGGER_EXIT, className, methodName));
@@ -104,7 +102,7 @@ public class TodoViewController implements TodoApplicationConstants {
     public String sendToDeleteById(@PathVariable long id) {
         String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         LOGGER.info(MessageFormat.format(LOGGER_ENTRY, className, methodName));
-        restTemplate.delete(base_uri+"/"+id);
+        todoController.deleteTaskById(id);
         LOGGER.info(MessageFormat.format(LOGGER_EXIT, className, methodName));
         return "redirect:/";
     }

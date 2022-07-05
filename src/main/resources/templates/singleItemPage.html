@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>To do Tracker</title>
-    <div th:replace="fragments/header :: header-css"/>
+    <div th:replace="fragments/header :: header-css"></div>
     <script type="text/javascript">
         function addNewComments(){
             var lTable = document.getElementById("commentsTable");
@@ -12,7 +12,7 @@
     </script>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"/>
+    <div th:replace="fragments/header :: header"></div>
     <div class="container" align="center">
         <form method="post" th:action="@{/createOrUpdate}" th:object="${tasksItem}">
         <table class='table-striped' border='1'>
@@ -35,7 +35,7 @@
                                       th:text="${tasksItem.description}"></textarea>
                         </span>
                     </td>
-                </tr><tr>
+                </tr><tr th:if="${tasksItem.systemTasksId > 0}">
                     <th>Creation Date</th>
                     <td>
                         <span th:text="${#temporals.format(tasksItem.creationDate, 'dd-MM-yyyy')}"></span>
@@ -76,7 +76,7 @@
                                     <td>
                                         <span th:text="${#temporals.format(comments.creationDate, 'dd-MM-yyyy')}"></span>
                                     </td>
-                                    <td th:text="${comments.taskComments}"/></td>
+                                    <td th:text="${comments.taskComments}"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" th:if="${action == 'edit' and tasksItem.systemTasksId > 0}" th:object="${todoTaskComments}">
@@ -105,6 +105,6 @@
         </form>
     </div>
     <br/>
-    <div th:replace="fragments/footer :: footer"/>
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
